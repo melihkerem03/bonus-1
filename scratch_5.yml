@@ -1,0 +1,34 @@
+name: Stok Analizi İş Akışı
+
+on:
+  push:
+    branches: [ main ]  # Bu iş akışı yalnızca main branch'e push yapıldığında tetiklenecek
+
+jobs:
+  analiz_ve_csv_olustur:
+    runs-on: ubuntu-latest  # En son Ubuntu sanal makinesinde çalışır
+
+    steps:
+    - name: Kodu Çek
+      uses: actions/checkout@v2  # Repository'deki kodu çeker
+
+    - name: Python Kurulumu
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Python'un 3.x sürümünü kullan
+
+    - name: Script'i Çalıştır
+      run: python main.py  # main.py scriptini çalıştırır ve CSV dosyalarını üretir
+
+    - name: SMA CSV Dosyasını Yükle
+      uses: actions/upload-artifact@v2
+      with:
+        name: orcl-sma
+        path: orcl-sma.csv  # orcl-sma.csv dosyasını bir sanat eseri olarak yükler
+
+    - name: RSI CSV Dosyasını Yükle
+      uses: actions/upload-artifact@v2
+      with:
+        name: orcl-rsi
+        path: orcl-rsi.csv  # orcl-rsi.csv dosyasını bir sanat eseri olarak yükler
+
