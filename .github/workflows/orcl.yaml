@@ -1,0 +1,50 @@
+name: Stok Veri Analizi İş Akışı
+
+on:
+  push:
+    branches: [ main ]  # Bu iş akışı, 'main' dalına yapılan push işlemlerinde tetiklenecek.
+
+jobs:
+  veri_analizi:
+    runs-on: ubuntu-latest  # Bu iş, en güncel Ubuntu sanal makinesi üzerinde çalışacak.
+
+    steps:
+    - name: Repoyu Çek
+      uses: actions/checkout@v2  # GitHub reposundaki kodları çeker.
+
+    - name: Python Kurulumu
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Python'un 3.x sürümünü kurar.
+
+    - name: Mevcut Dizindeki Dosyaları Listele
+      run: ls -l  # Mevcut dizindeki dosyaları listeler.
+
+    - name: CSV Dosyasını Kontrol Et
+      run: |
+        if [ ! -f orcl.csv ]; then
+          echo "orcl.csv dosyası bulunamadı!"
+          exit 1
+        fi
+
+    - name: Script'i Çalıştır
+      run: |
+        python main.py  # 'main.py' betiğini çalıştırır.
+        if [ ! -f orcl-sma.csv ] || [ ! -f orcl-rsi.csv ]; then
+          echo "Çıktı dosyaları oluşturulamadı!"
+          exit 1
+        fi
+
+    - name: SMA Sonuçlarını Yükle
+      uses: actions/upload-artifact@v2
+      if: success()
+      with:
+        name: sma-sonuclari
+        path: orcl-sma.csv  # 'orcl-sma.csv' dosyasını bir sanat eseri olarak yükler.
+
+    - name: RSI Sonuçlarını Yükle
+      uses: actions/upload-artifact@v2
+      if: success()
+      with:
+        name: rsi-sonuclari
+        path: orcl-rsi.csv  # 'orcl-rsi.csv' dosyasını bir sanat eseri olarak yükler.
