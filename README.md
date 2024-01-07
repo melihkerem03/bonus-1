@@ -18,13 +18,9 @@ Add your stock dataset named orcl.csv to the project directory.
 Run main.py to calculate SMA and RSI values.
 Find the results in the generated orcl-sma.csv and orcl-rsi.csv files.
 
-
 Details of SMA and RSI Calculation
-SMA (Simple Moving Average)
-RSI (Relative Strength Index)
-
-Contributing
-For bug reports and suggestions, use GitHub Issues.
+SMA (Simple Moving Average)  SMA = (P1 + P2 + P3 + P4 + P5) / N (P= closing prices, N= Days Number)
+RSI (Relative Strength Index)  RSI = 100 – [100 ÷ ( 1 + (Average Gain During Up Periods ÷ Average Loss During Down Periods ))]
 
 License
 [non-licanced]
