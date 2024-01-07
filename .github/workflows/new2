@@ -1,0 +1,9 @@
+name: Stok Veri Analizi İş Akışı
+
+on:
+  push:
+    branches: [ main ]  # Bu iş akışı, 'main' dalına yapılan push işlemlerinde tetiklenecek.
+
+jobs:
+  veri_analizi:
+    runs-on: ubuntu-latest  # Bu iş, en güncel Ubuntu sanal makinesi üzerinde çalışacak.
