@@ -1,0 +1,27 @@
+name: Python Uygulama İş Akışı
+
+on: [push] 
+
+jobs:
+  build: # İş adı 'build'
+    runs-on: ubuntu-latest # En son Ubuntu sanal makinesinde çalışır
+
+    steps:
+    - uses: actions/checkout@v2 # Kodu checkout etmek için kullanılır
+    - name: Python'u Kur # Python kurulum adımı
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Varsayılan Python sürümünü kullan
+    - name: Script'i Çalıştır # main.py scriptini çalıştır
+      run: |
+        python main.py
+    - name: SMA CSV Dosyasını Yükle # SMA sonuçlarını CSV olarak yükle
+      uses: actions/upload-artifact@v2
+      with:
+        name: sma-sonuçları
+        path: orcl-sma.csv
+    - name: RSI CSV Dosyasını Yükle # RSI sonuçlarını CSV olarak yükle
+      uses: actions/upload-artifact@v2
+      with:
+        name: rsi-sonuçları
+        path: orcl-rsi.csv
