@@ -6,16 +6,10 @@ on:
 
 jobs:
   veri_analizi:
-    runs-on: ubuntu-latest  # Bu iş, en güncel Ubuntu sanal makinesi üzerinde çalışacak.
+    # ... önceki adımlar ...
 
-    steps:
-    - name: Repoyu Çek
-      uses: actions/checkout@v2  # GitHub reposundaki kodları çeker.
-
-    - name: Python Kurulumu
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'  # Python'un 3.x sürümünü kurar.
+    - name: Mevcut Dizindeki Dosyaları Listele
+      run: ls -l
 
     - name: Script'i Çalıştır
       run: python main.py  # 'main.py' betiğini çalıştırır.
